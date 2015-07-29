@@ -30,8 +30,10 @@ describe Replicator do
     expect(Replicator::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  context "#replicate" do
+    it 'should create a deep copy of itself if no arguments are passed' do
+      expect(@s).to ob_eq(@s.replicate)
+    end
   end
 
 end

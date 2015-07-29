@@ -1,5 +1,13 @@
 require "replicator/version"
 
-module Replicator
-  # Your code goes here...
+class Object
+  module Replicator
+
+    def replicate(options = {})
+      Marshal.load(Marshal.dump(self)) if options.empty?
+    end
+
+  end
+
+  include Replicator
 end
