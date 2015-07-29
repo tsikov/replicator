@@ -33,4 +33,61 @@ describe Replicator do
   it 'does something useful' do
     expect(false).to eq(true)
   end
+
+end
+
+# expect(@s).to eql(@replicated) doesn't do the job ->
+# incorreclty assumes the hashes should be the same
+RSpec::Matchers.define :ob_eq do |expected|
+  match do |actual|
+
+    # calling the matcher recursively will return a matcher as a result
+    # => what we want is a boolean
+    # => extract into a function
+    ob_eq_fn(actual, expected, [])
+
+  end
+
+  failure_message do |actual|
+    "expected that #{actual} would be a the same as #{expected}"
+  end
+end
+
+def ob_eq_fn(source, replica, visited)
+
+  # we already checked if this two objects are identical -> move on
+  return true if visited.include? source
+
+  # mark object as visited
+  visited << source
+
+  # don't do complex checks for string objects
+  return source == replica if source.class == String
+
+  # the class should be the same, meaning it has the same methods/behaviour
+  source.class == replica.class &&
+  # the hashes should be different, meaning the instances are different
+  source.hash != replica.hash &&
+  # the instance variables should be the same number
+  source.instance_variables.count == replica.instance_variables.count &&
+
+  # we can now check if instance variables are the same
+  # recursively check if all instance variables are replicated (and their
+  # instance variables, and so on...)
+  source.instance_variables.map do |iv|
+
+    siv = source.instance_variable_get(iv)
+    riv = replica.instance_variable_get(iv)
+
+    # if an instance variable is a collection -> check individual iv
+    if siv.class == Array
+      siv.zip(riv).map do |ivs|
+        ob_eq_fn(ivs[0], ivs[1], visited)
+      end.reduce(true) { |memo, new| memo && new }
+    else
+      ob_eq_fn(source.instance_variable_get(iv), replica.instance_variable_get(iv), visited)
+    end
+
+  end.reduce(true) { |memo, new| memo && new }
+
 end
