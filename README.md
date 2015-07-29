@@ -7,7 +7,7 @@ Tiny ruby gem for deep copying of objects.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'replicator'
+gem 'object-replicator'
 ```
 
 And then execute:
@@ -16,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install replicator
+    $ gem install object-replicator
 
 ## Usage
 

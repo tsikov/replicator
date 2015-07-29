@@ -67,7 +67,7 @@ def ob_eq_fn(source, replica, visited)
   return source == replica if source.class == String
 
   # the class should be the same, meaning it has the same methods/behaviour
-  source.class == replica.class &&
+  return source.class == replica.class &&
   # the hashes should be different, meaning the instances are different
   source.hash != replica.hash &&
   # the instance variables should be the same number
