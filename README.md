@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-`your_object.replicate` will create a new deep cloned object.
+`Replicator.replicate(object)` will return a new deeply cloned object.
 
 ## Development
 
@@ -31,7 +31,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/replicator. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
-
 
 ## License
 
