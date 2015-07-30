@@ -31,8 +31,8 @@ describe Replicator do
   end
 
   context "#replicate" do
-    it 'should create a deep copy of itself if no arguments are passed' do
-      expect(@s).to ob_eq(@s.replicate)
+    it 'should create a deep copy of an object' do
+      expect(@s).to ob_eq(Replicator::replicate(@s))
     end
   end
 
