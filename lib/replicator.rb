@@ -3,10 +3,10 @@ require "replicator/version"
 module Replicator
   @visited = []
 
-  def self.replicate(object, options = {})
-    return object if @visited.include? object
+  def self.replicate(object)
+    return object if @visited.include? object.object_id
 
-    @visited << object unless object.class == Array
+    @visited << object.object_id unless object.class == Array
 
     replica = object.clone
 
