@@ -58,10 +58,10 @@ end
 def ob_eq_fn(source, replica, visited)
 
   # we already checked if this two objects are identical -> move on
-  return true if visited.include? source
+  return true if visited.include? source.object_id
 
   # mark object as visited
-  visited << source
+  visited << source.object_id
 
   # don't do complex checks for string objects
   return source == replica if source.class == String
